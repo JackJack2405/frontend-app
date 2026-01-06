@@ -27,7 +27,7 @@ export function AdminTable({ users, setUsers, fetchUsers, API }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(API, form);
+      await axios.post(API, form, {withCredentials: true}).then(handleChange);
       await fetchUsers();
       // Reset the form
       setForm({
@@ -58,7 +58,7 @@ export function AdminTable({ users, setUsers, fetchUsers, API }) {
 
   const handleEditSave = async (id) => {
     try {
-      await axios.patch(`${API}/${id}`, editForm);
+      await axios.patch(`${API}/${id}`, editForm, {withCredentials: true});
       await fetchUsers();
       setEditId(null);
     } catch (error) {
